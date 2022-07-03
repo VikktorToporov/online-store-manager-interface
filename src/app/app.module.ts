@@ -12,7 +12,11 @@ import { ItemComponent } from './components/item/item.component';
 import { ItemListComponent } from './components/item-list/item-list.component';
 import { LoginComponent } from './components/login/login.component';
 import { AuthGuard } from './guards/auth.guard';
-
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatSelectModule } from '@angular/material/select';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { ItemDetailsComponent } from './components/item-details/item-details.component';
+import { CartComponent } from './components/cart/cart.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -22,12 +26,17 @@ import { AuthGuard } from './guards/auth.guard';
     LandingComponent,
     ItemComponent,
     ItemListComponent,
-    LoginComponent
+    LoginComponent,
+    ItemDetailsComponent,
+    CartComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
+    BrowserAnimationsModule,
+    MatSelectModule,
+    MatTooltipModule,
   ],
   providers: [
     HttpClient,

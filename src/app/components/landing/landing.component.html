@@ -1,0 +1,16 @@
+<div class="landing">
+    <ng-container *ngFor="let category of categories">
+        <ng-container *ngIf="category && category.items && category.items.length > 0">
+            <div class="landing-category-wrapper">
+                <div class="landing-category-header">
+                    <span>{{category?.text}}</span>
+                    <a>View all deals &nbsp; <i class="fa-solid fa-chevron-right"></i></a>
+                </div>
+    
+                <div class="landing-category-items">
+                    <item *ngFor="let item of category.items" [item]="item"></item>
+                </div>
+            </div>
+        </ng-container>
+    </ng-container>
+</div>

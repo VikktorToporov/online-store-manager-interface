@@ -1,0 +1,37 @@
+.landing {
+    margin-top: 120px;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+
+    &-category {
+        &-wrapper {
+            width: 80%;
+        }
+
+        &-header {
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+
+            span {
+                font-size: 32px;
+                margin-right: 40px;
+            }
+
+            a {
+                font-size: 20px;
+                cursor: pointer;
+                color: #8E9498;
+
+                &:hover {
+                    text-decoration: underline;
+                }
+            }
+        }
+
+        &-items {
+            margin-top: 10px;
+        }
+    }
+}

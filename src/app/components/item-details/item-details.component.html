@@ -1,0 +1,16 @@
+<div class="item-details" *ngIf="item">
+    <div class="item-details-images" *ngIf="item.images && item.images.length > 0" [ngStyle]="{'background-image' : 'url(' + item.images[0] + ')'}"></div>
+
+    <div class="item-details-info">
+        <a class="item-details-info-store">{{item.store?.text}}</a>
+        <span class="item-details-info-title">{{item.title}}</span>
+        <span class="item-details-info-price">${{item.price}}</span>
+
+        <a (click)="addToCart(item.id)" class="item-details-info-buy-btn">{{isItemInCart ? 'Remove from cart' : 'Add to cart'}}</a>
+
+        <div class="item-details-info-description">
+            <span class="item-details-info-description-title">Description</span>
+            <span [innerHTML]="item?.description"></span>
+        </div>
+    </div>
+</div>

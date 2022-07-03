@@ -1,0 +1,54 @@
+.item-details {
+    margin-top: 120px;
+    display: flex;
+    justify-content: space-evenly;
+
+    &-images {
+        background-size: cover;
+        background-position: center;
+        width: 600px;
+        height: 600px;
+    }
+
+    &-info {
+        width: 40%;
+        padding: 0 20px 20px 20px;
+
+        &-store {
+            color: rgb(105, 105, 240);
+            display: block;
+        }
+
+        &-title {
+            font-size: 30px;
+            display: block;
+            margin-bottom: 20px;
+            font-weight: 500;
+        }
+
+        &-price {
+            font-size: 30px;
+            display: block;
+            margin-bottom: 10px;
+            font-weight: 500;
+        }
+
+        &-buy-btn {
+            background-color: #1DCBC7;
+            border-radius: 30px;
+            font-size: 20px;
+            color: white;
+            padding: 10px 20px;
+            display: inline-block;
+            margin-bottom: 10px;
+        }
+
+        &-description {
+            &-title {
+                display: block;
+                font-size: 20px;
+                font-weight: 500;
+            }
+        }
+    }
+}

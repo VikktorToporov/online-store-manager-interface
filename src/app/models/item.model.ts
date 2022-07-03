@@ -19,7 +19,25 @@ export interface Item {
 
     sale: Sale;
 
-    store: Store;
+    store: {text: string, value: string};
 
     images: any;
+}
+
+export interface FrontPageFeed {
+    itemsVehicle: Item[];
+    
+    itemsSportHobby: Item[];
+    
+    itemsClothes: Item[];
+    
+    itemsPets: Item[];
+    
+    itemsElectronics: Item[];
+    
+    itemsGames: Item[];
+    
+    itemsAntiques: Item[];
+    
+    itemsOther: Item[];
 }

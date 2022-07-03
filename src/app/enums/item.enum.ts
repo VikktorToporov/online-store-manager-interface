@@ -8,3 +8,14 @@ export enum ItemCategory {
     ANTIQUES = 6,
     OTHER = 7,
 }
+
+export const ItemCategory_Display = {
+    VEHICLES: 'Vehicles',
+    SPORTANDHOBBY: 'Sports & Hobbies',
+    CLOTHES: 'Clothes',
+    PETS: 'Pets',
+    ELECTRONICS: 'Electronics',
+    GAMES: 'Games',
+    ANTIQUES: 'Antiques',
+    OTHER: 'Other',
+}

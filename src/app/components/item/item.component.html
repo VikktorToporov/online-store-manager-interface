@@ -1,0 +1,10 @@
+<a *ngIf="item && item.images && item.images.length > 0 && item.title && item.price && item.id"
+    [matTooltip]="item.description" [routerLink]="['/Item/Details/' + item.id]" class="item">
+    <div class="item-image" [ngStyle]="{ 'background-image' : 'url(' + item.images[0] + ')' }"></div>
+
+    <div class="item-info">
+        <span class="item-info-title">{{item.title}}</span>
+        
+        <span class="item-info-price">${{item.price}}</span>
+    </div>
+</a>

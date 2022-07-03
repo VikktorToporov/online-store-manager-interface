@@ -1,0 +1,31 @@
+<div class="header">
+    <a class="header-logo" [routerLink]="['/']">Online Shop</a>
+
+    <div class="header-search">
+        <div class="header-search-input-wrapper">
+            <input placeholder="Search..."/>
+
+            <a><i class="fa-solid fa-magnifying-glass"></i></a>
+        </div>
+    </div>
+
+    <ul class="header-nav">
+        <li>
+            <a>
+                <i class="fa-solid fa-cart-shopping"></i>
+                <a [routerLink]="['/Cart']">Cart</a>
+            </a>
+        </li>
+        <li>
+            <a *ngIf="userId">
+                <i class="fa-solid fa-user"></i>
+                <span>Profile</span>
+            </a>
+        </li>
+        <li>
+            <a *ngIf="!userId">
+               <span>Log in</span>
+            </a>
+        </li>
+    </ul>
+</div>
