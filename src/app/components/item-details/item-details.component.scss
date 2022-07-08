@@ -1,7 +1,29 @@
+.wrapper {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
 .item-details {
     margin-top: 120px;
     display: flex;
-    justify-content: space-evenly;
+    justify-content: center;
+    flex-wrap: wrap;
+    width: 800px;
+    
+    &-panel {
+        background-color: white;
+        padding: 20px;
+        border-radius: 10px;
+        width: 800px;
+        margin-bottom: 20px;
+        box-shadow: 0 1px 3px #0000000d;
+    }
+
+    &-top {
+        display: flex;
+        justify-content: space-evenly;
+    }
 
     &-images {
         background-size: cover;
@@ -11,9 +33,6 @@
     }
 
     &-info {
-        width: 40%;
-        padding: 0 20px 20px 20px;
-
         &-store {
             color: rgb(105, 105, 240);
             display: block;
@@ -26,11 +45,18 @@
             font-weight: 500;
         }
 
+        &-old-price {
+            font-size: 20px;
+            display: block;
+            margin-bottom: 10px;
+            text-decoration: line-through;
+        }
+
         &-price {
             font-size: 30px;
             display: block;
             margin-bottom: 10px;
-            font-weight: 500;
+            font-weight: 600;
         }
 
         &-buy-btn {
@@ -40,7 +66,7 @@
             color: white;
             padding: 10px 20px;
             display: inline-block;
-            margin-bottom: 10px;
+            margin-bottom: 40px;
         }
 
         &-description {
@@ -50,5 +76,43 @@
                 font-weight: 500;
             }
         }
+    }
+}
+
+.edit {
+    position: fixed;
+    bottom: 15px;
+    right: 15px;
+    font-size: 25px;
+    background: #1dcbc7;
+    color: white;
+    padding: 10px 12px;
+    border-radius: 100%;
+    cursor: pointer;
+}
+
+.dark {
+    position: fixed;
+    background-color: #00000070;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .edit-item {
+        width: 600px;
+        background-color: white;
+        box-shadow: 0 1px 3px #0000000d;
+        border-radius: 10px;
+        padding: 10px;
+        text-align: center;
+    }
+
+    .danger-btn {
+        background: #e93131;
+        color: white;
     }
 }

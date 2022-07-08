@@ -1,0 +1,241 @@
+<div class="profile">
+    <h3>Profile & Settings</h3>
+
+    <div class="profile-nav">
+        <ul>
+            <li (click)="changeNav(0)" [ngClass]="navSelected === 0 ? 'active' : ''">Profile</li>
+            <!-- CLIENT -->
+            <li *ngIf="userType == undefined || userType == null" (click)="changeNav(5)" [ngClass]="navSelected === 5 ? 'active' : ''">Orders</li>
+            <!-- ADMIN, MOD  -->
+            <li *ngIf="userType === enumUserRole.ADMINISTRATOR || userType === enumUserRole.MODERATOR" (click)="changeNav(1)" [ngClass]="navSelected === 1 ? 'active' : ''">Stores</li>
+            <!-- ADMIN  -->
+            <li *ngIf="userType === enumUserRole.ADMINISTRATOR" (click)="changeNav(2)" [ngClass]="navSelected === 2 ? 'active' : ''">Users</li>
+            <!-- ADMIN  -->
+            <li *ngIf="userType === enumUserRole.ADMINISTRATOR" (click)="changeNav(3)" [ngClass]="navSelected === 3 ? 'active' : ''">Couriers</li>
+            <!-- ADMIN, MOD  -->
+            <li *ngIf="userType === enumUserRole.ADMINISTRATOR || userType === enumUserRole.MODERATOR" (click)="changeNav(4)" [ngClass]="navSelected === 4 ? 'active' : ''">Sales</li>
+        </ul>
+    </div>
+
+    <div class="panels">
+        <div *ngIf="navSelected == 0" [formGroup]="userForm" class="profile-panel manage-profile">
+            <mat-form-field appearance="fill">
+                <mat-label>Password</mat-label>
+                <input matInput formControlName="password" placeholder="Password" type="password" required>
+            </mat-form-field>
+    
+            <mat-form-field appearance="fill">
+                <mat-label>Repeat Password</mat-label>
+                <input matInput formControlName="password2" placeholder="Repeat Password" type="password" required>
+            </mat-form-field>
+
+            <div>
+                <button (click)="updateProfile()" mat-raised-button class="active-btn">Update</button>
+            </div>
+        </div>
+
+        <div *ngIf="navSelected == 1" class="profile-panel manage-stores">
+            <table mat-table [dataSource]="stores">
+                <ng-container matColumnDef="name">
+                    <th mat-header-cell *matHeaderCellDef> Name </th>
+                    <td mat-cell *matCellDef="let element" class="store-name" (click)="editStore(element.id)"> {{element.name}} </td>
+                  </ng-container>
+
+                <ng-container matColumnDef="active">
+                  <th mat-header-cell *matHeaderCellDef> Status </th>
+                  <td mat-cell *matCellDef="let element"> {{element.active ? 'Active' : 'Inactive'}} </td>
+                </ng-container>
+              
+                <ng-container matColumnDef="address">
+                    <th mat-header-cell *matHeaderCellDef> Address </th>
+                    <td mat-cell *matCellDef="let element"> {{element.address}} </td>
+                </ng-container>
+              
+                <tr mat-header-row *matHeaderRowDef="storesColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: storesColumns;"></tr>
+              </table>
+        </div>
+
+        <div *ngIf="navSelected == 2" class="profile-panel manage-stores">
+            <table mat-table [dataSource]="users">
+                <ng-container matColumnDef="username">
+                    <th mat-header-cell *matHeaderCellDef> Username </th>
+                    <td mat-cell *matCellDef="let element" class="store-name" (click)="editClient(element.id)"> {{element.username}} </td>
+                  </ng-container>
+
+                <ng-container matColumnDef="email">
+                  <th mat-header-cell *matHeaderCellDef> Email </th>
+                  <td mat-cell *matCellDef="let element"> {{element.email}} </td>
+                </ng-container>
+              
+                <tr mat-header-row *matHeaderRowDef="usersColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: usersColumns;"></tr>
+              </table>
+        </div>
+
+        <div *ngIf="navSelected == 3" class="profile-panel manage-stores">
+            <table mat-table [dataSource]="companies">
+                <ng-container matColumnDef="name">
+                    <th mat-header-cell *matHeaderCellDef> Name </th>
+                    <td mat-cell *matCellDef="let element" class="store-name" (click)="editCompany(element.id)"> {{element.name}} </td>
+                  </ng-container>
+
+                <ng-container matColumnDef="deliveryFee">
+                  <th mat-header-cell *matHeaderCellDef> Delivery Fee </th>
+                  <td mat-cell *matCellDef="let element"> {{element.deliveryFee}} </td>
+                </ng-container>
+              
+                <tr mat-header-row *matHeaderRowDef="companiesColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: companiesColumns;"></tr>
+              </table>
+        </div>
+
+        <div *ngIf="navSelected == 4" class="profile-panel manage-stores">
+            <table mat-table [dataSource]="sales">
+                <ng-container matColumnDef="startDate">
+                    <th mat-header-cell *matHeaderCellDef> Period </th>
+                    <td mat-cell *matCellDef="let element" class="store-name" (click)="editSale(element.id)"> {{element.startDate}} - {{element.endDate}}</td>
+                  </ng-container>
+
+                <ng-container matColumnDef="salePercentage">
+                    <th mat-header-cell *matHeaderCellDef> Percentage </th>
+                    <td mat-cell *matCellDef="let element"> {{element.salePercentage}}{{element.salePercentage ? '%' : ''}} </td>
+                  </ng-container>
+              
+                <tr mat-header-row *matHeaderRowDef="salesColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: salesColumns;"></tr>
+              </table>
+        </div>
+
+        <div *ngIf="navSelected == 5" class="profile-panel manage-stores">
+            <h4>Total Price: ${{ordersTotalPrice}}
+                <br>
+                Total Items: {{ordersTotalItems}}
+            </h4>
+            <table mat-table [dataSource]="orders">
+                <ng-container matColumnDef="status">
+                    <th mat-header-cell *matHeaderCellDef> Status </th>
+                    <td mat-cell *matCellDef="let element"> {{element.status}}</td>
+                </ng-container>
+
+                <ng-container matColumnDef="totalPrice">
+                    <th mat-header-cell *matHeaderCellDef> Total </th>
+                    <td mat-cell *matCellDef="let element"> ${{element.totalPrice}}</td>
+                </ng-container>
+
+                <ng-container matColumnDef="items">
+                    <th mat-header-cell *matHeaderCellDef> Items </th>
+                    <td mat-cell *matCellDef="let element"> {{element.items?.length || 0}}</td>
+                </ng-container>
+
+                <ng-container matColumnDef="deliveryCompany">
+                    <th mat-header-cell *matHeaderCellDef> Courier </th>
+                    <td mat-cell *matCellDef="let element"> {{element.deliveryCompany?.text}}</td>
+                </ng-container>
+
+                <ng-container matColumnDef="createDate">
+                    <th mat-header-cell *matHeaderCellDef> Create Date </th>
+                    <td mat-cell *matCellDef="let element"> {{element.createDate}}</td>
+                </ng-container>
+              
+                <tr mat-header-row *matHeaderRowDef="ordersColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: ordersColumns;"></tr>
+              </table>
+        </div>
+    </div>
+
+    <div *ngIf="storeToEdit || userToEdit || companyToEdit || saleToEdit" class="dark">
+        <div *ngIf="storeToEdit" [formGroup]="storeForm" class="edit-store">
+            <h4>Edit Store</h4>
+
+            <mat-form-field appearance="fill">
+                <mat-label>Name</mat-label>
+                <input matInput formControlName="name" placeholder="Name" required>
+            </mat-form-field>
+    
+            <mat-form-field appearance="fill">
+                <mat-label>Address</mat-label>
+                <input matInput formControlName="address" placeholder="Address" required>
+            </mat-form-field>
+
+            <div>
+                <button (click)="deleteStore()" style="margin-right: 10px" mat-raised-button class="danger-btn">Delete</button>
+
+                <button (click)="closeDark()" style="margin-right: 10px" mat-raised-button class="active-btn">Cancel</button>
+
+                <button (click)="updateStore()" mat-raised-button class="active-btn">Update</button>
+            </div>
+        </div>
+
+        <div *ngIf="userToEdit" [formGroup]="clientForm" class="edit-store">
+            <h4>Edit User</h4>
+
+            <mat-form-field appearance="fill">
+                <mat-label>Username</mat-label>
+                <input matInput formControlName="username" placeholder="Username" required>
+            </mat-form-field>
+    
+            <mat-form-field appearance="fill">
+                <mat-label>Email</mat-label>
+                <input matInput formControlName="email" placeholder="Email" required>
+            </mat-form-field>
+
+            <div>
+                <button (click)="deleteClient()" style="margin-right: 10px" mat-raised-button class="danger-btn">Delete</button>
+
+                <button (click)="closeDark()" style="margin-right: 10px" mat-raised-button class="active-btn">Cancel</button>
+
+                <button (click)="updateClient()" mat-raised-button class="active-btn">Update</button>
+            </div>
+        </div>
+
+        <div *ngIf="companyToEdit" [formGroup]="companyForm" class="edit-store">
+            <h4>Edit Courier</h4>
+
+            <mat-form-field appearance="fill">
+                <mat-label>Name</mat-label>
+                <input matInput formControlName="name" placeholder="Name" required>
+            </mat-form-field>
+    
+            <mat-form-field appearance="fill">
+                <mat-label>Delivery Fee</mat-label>
+                <input matInput formControlName="deliveryFee" placeholder="Delivery Fee" required>
+            </mat-form-field>
+
+            <div>
+                <button (click)="deleteCompany()" style="margin-right: 10px" mat-raised-button class="danger-btn">Delete</button>
+
+                <button (click)="closeDark()" style="margin-right: 10px" mat-raised-button class="active-btn">Cancel</button>
+
+                <button (click)="updateCompany()" mat-raised-button class="active-btn">Update</button>
+            </div>
+        </div>
+
+        <div *ngIf="saleToEdit" [formGroup]="saleForm" class="edit-store">
+            <h4>Edit Sale</h4>
+
+            <mat-form-field appearance="fill">
+                <mat-label>Start Date</mat-label>
+                <input matInput formControlName="startDate" placeholder="Start Date" required>
+            </mat-form-field>
+    
+            <mat-form-field appearance="fill">
+                <mat-label>End Date</mat-label>
+                <input matInput formControlName="endDate" placeholder="End Date" required>
+            </mat-form-field>
+
+            <mat-form-field appearance="fill">
+                <mat-label>Percentage</mat-label>
+                <input matInput formControlName="salePercentage" placeholder="Percentage" required>
+            </mat-form-field>
+
+            <div>
+                <button (click)="deleteSale()" style="margin-right: 10px" mat-raised-button class="danger-btn">Delete</button>
+
+                <button (click)="closeDark()" style="margin-right: 10px" mat-raised-button class="active-btn">Cancel</button>
+
+                <button (click)="updateSale()" mat-raised-button class="active-btn">Update</button>
+            </div>
+        </div>
+    </div>
+</div>

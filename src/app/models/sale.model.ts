@@ -3,9 +3,9 @@ import { Item } from "./item.model";
 export interface Sale {
     id: string;
 
-    startDate: Date | string;
+    startDate: string;
 
-    endDate: Date | string;
+    endDate: string;
 
     salePercentage: number;
 

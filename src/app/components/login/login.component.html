@@ -1,0 +1,73 @@
+<a (click)="showLogin = !showLogin; showLoginInfoTitle = false" class="form-toggle">{{showLogin ? 'Signup' : 'Login'}}</a>
+
+<div class="login" *ngIf="showLogin">
+    <span *ngIf="showLoginInfoTitle">Now enter your credentials to login.</span>
+    <span *ngIf="showError" class="error">There was an error.</span>
+
+    <h2>Login</h2>
+
+    <form *ngIf="loginForm" [formGroup]="loginForm">
+        <div class="login-box">
+            <mat-form-field appearance="fill">
+                <mat-label>Email</mat-label>
+                <input formControlName="email" matInput>
+            </mat-form-field>
+        </div>
+        
+        <div class="login-box">
+            <mat-form-field appearance="fill">
+                <mat-label>Password</mat-label>
+                <input type="password" formControlName="password" matInput>
+            </mat-form-field>
+        </div>
+        
+        <div class="login-box">
+            <a (click)="login()" mat-raised-button color="primary">Login</a>
+        </div>
+    </form>
+</div>
+
+<div class="signup" *ngIf="showLogin === false">
+    <span *ngIf="showError" class="error">There was an error.</span>
+
+    <h2>Signup</h2>
+
+    <form *ngIf="signupForm" [formGroup]="signupForm">
+        <div class="signup-box">
+            <mat-form-field appearance="fill">
+                <mat-label>Username</mat-label>
+                <input formControlName="username" matInput>
+            </mat-form-field>
+        </div>
+
+        <div class="login-box">
+            <mat-form-field appearance="fill">
+                <mat-label>Email</mat-label>
+                <input formControlName="email" matInput>
+            </mat-form-field>
+        </div>
+        
+        <div class="signup-box">
+            <mat-form-field appearance="fill">
+                <mat-label>Password</mat-label>
+                <input formControlName="password" matInput>
+            </mat-form-field>
+        </div>
+
+        <div class="signup-box" *ngIf="userType === enumUserRole.ADMINISTRATOR">
+            <mat-form-field appearance="fill">
+                <mat-label>Role</mat-label>
+                <mat-select formControlName="role">
+                    <mat-option [value]="enumUserRole.ADMINISTRATOR"> Admin </mat-option>
+                    <mat-option [value]="enumUserRole.MODERATOR"> Moderator </mat-option>
+                    <mat-option [value]="-1"> Client </mat-option>
+                  </mat-select>
+            </mat-form-field>
+        </div>
+        
+
+        <div class="signup-box">
+            <a (click)="signup()" mat-raised-button color="primary">Signup</a>
+        </div>
+    </form>
+</div>

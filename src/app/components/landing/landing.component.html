@@ -4,7 +4,7 @@
             <div class="landing-category-wrapper">
                 <div class="landing-category-header">
                     <span>{{category?.text}}</span>
-                    <a>View all deals &nbsp; <i class="fa-solid fa-chevron-right"></i></a>
+                    <a [routerLink]="['/List']" [queryParams]="{category: category?.value}">View all deals &nbsp; <i class="fa-solid fa-chevron-right"></i></a>
                 </div>
     
                 <div class="landing-category-items">

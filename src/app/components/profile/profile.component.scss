@@ -1,0 +1,99 @@
+.profile {
+    margin-top: 120px;
+
+    h3 {
+        width: 100%;
+        font-size: 30px;
+        text-align: center;
+    }
+
+    &-nav {
+        background-color: white;
+        box-shadow: 0 1px 3px #0000000d;
+        border-radius: 10px;
+        padding: 30px;
+        width: 100px;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        position: fixed;
+        left: 20px;
+
+        ul {
+            list-style-type: none;
+        }
+        
+        li {
+            margin: 8px 0;
+            cursor: pointer;
+
+            &:hover {
+                text-decoration: underline;
+            }
+        }
+
+        .active {
+            color: #1dcbc7;
+        }
+    }
+
+    &-panel {
+        background-color: white;
+        box-shadow: 0 1px 3px #0000000d;
+        border-radius: 10px;
+        padding: 10px;
+    }
+
+    .panels {
+        display: flex;
+        justify-content: center;
+    }
+
+    .manage-profile {
+        width: 300px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .manage-stores {
+        width: 400px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        .store-name {
+            color: #1dcbc7;
+            cursor: pointer;
+
+            &:hover {
+                text-decoration: underline;
+            }
+        }
+
+        table {
+            width: 100%;
+        }
+    }
+    
+    .dark {
+        position: fixed;
+        background-color: #00000070;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        .edit-store {
+            width: 300px;
+            background-color: white;
+            box-shadow: 0 1px 3px #0000000d;
+            border-radius: 10px;
+            padding: 10px;
+            text-align: center;
+        }
+    }
+}

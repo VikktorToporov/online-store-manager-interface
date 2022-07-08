@@ -11,4 +11,6 @@ export interface Store {
     user: User;
     
     items: Item[];
+
+    name: string;
 }

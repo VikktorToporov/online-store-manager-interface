@@ -1,0 +1,54 @@
+<div class="list">
+    <div [formGroup]="filtersForm" class="list-filters">
+        <h4>Filters</h4>
+
+        <mat-form-field appearance="fill">
+            <mat-label>Order by</mat-label>
+            <mat-select (selectionChange)="updateFilters('sortColumn', $event)" formControlName="sortColumn">
+                <mat-option [value]="enumSortColumn[enumSortColumn.CREATEDATE]">Create date</mat-option>
+                <mat-option [value]="enumSortColumn[enumSortColumn.PRICE]">Price</mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+            <mat-label>Sort order</mat-label>
+            <mat-select (selectionChange)="updateFilters('sortOrder', $event)" formControlName="sortOrder">
+                <mat-option [value]="enumSortOrder[enumSortOrder.ASC]">Ascending</mat-option>
+                <mat-option [value]="enumSortOrder[enumSortOrder.DESC]">Descending</mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+            <mat-label>Category</mat-label>
+            <mat-select (selectionChange)="updateFilters('category', $event)" formControlName="category">
+                <mat-option *ngFor="let category of categories" [value]="category?.value">
+                {{category?.text}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <div>
+            <span>Price from:</span>
+            <br>
+            <mat-slider thumbLabel formControlName="priceFrom" (input)="updateFilters('priceFrom', $event)" [displayWith]="formatLabel" tickInterval="10" step="10" [min]="priceFromMin" [max]="priceFromMax" aria-label="units" style="width: 200px"></mat-slider>
+        </div>
+
+        <div>
+            <span>Price to:</span>
+            <br>
+            <mat-slider thumbLabel formControlName="priceTo" (input)="updateFilters('priceTo', $event)" [displayWith]="formatLabel" tickInterval="10" step="10" [min]="priceToMin" [max]="priceToMax" aria-label="units" style="width: 200px"></mat-slider>
+        </div>
+
+        <button mat-raised-button (click)="updateQueryParams()">Search</button>
+    </div>
+
+    <h4 *ngIf="storeName">In store "{{storeName}}"</h4>
+    <h3 *ngIf="searchKeyword">Searching "{{searchKeyword}}"</h3>
+    <div class="list-items-wrapper">
+        <item *ngFor="let item of items" [item]="item"></item>
+    </div>
+
+    <div *ngIf="totalItems > 0 && items?.length > 0" class="pager">
+        <mat-paginator [length]="totalItems" [pageSize]="pageSize" [pageSizeOptions]="[12, 24, 48]" (page)="pageChange($event)"></mat-paginator>
+    </div>
+</div>

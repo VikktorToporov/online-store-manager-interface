@@ -13,6 +13,8 @@ export interface Item {
 
     price: number;
 
+    originalPrice: number;
+
     createDate: Date | string;
 
     changeDate: Date | string;

@@ -1,0 +1,60 @@
+<div class="checkout">
+  <h3>Checkout</h3>
+
+    <div class="checkout-stepper-wrapper">
+        <mat-stepper orientation="vertical" [linear]="false" #stepper>
+            <mat-step [stepControl]="deliveryCompanyForm">
+              <form [formGroup]="deliveryCompanyForm">
+                <ng-template matStepLabel>Select a delivery company</ng-template>
+                <mat-form-field appearance="fill">
+                  <mat-label>Delivery Company</mat-label>
+                  <mat-select (selectionChange)="deliveryCompanySelected($event)" formControlName="deliveryCompany">
+                    <mat-option *ngFor="let company of deliveryCompanies" [value]="company?.id">
+                      {{company?.name}}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+                <div>
+                  <button mat-raised-button matStepperNext class="active-btn">Next</button>
+                </div>
+              </form>
+            </mat-step>
+            <mat-step [stepControl]="bankAccountForm">
+              <form [formGroup]="bankAccountForm">
+                <ng-template matStepLabel>Fill out your bank account information</ng-template>
+                <mat-form-field appearance="fill">
+                  <mat-label>Bank Name</mat-label>
+                  <input matInput formControlName="bankName" placeholder="Bank name" required>
+                </mat-form-field>
+
+                <br><br>
+
+                <mat-form-field appearance="fill">
+                    <mat-label>Bank Number</mat-label>
+                    <input matInput formControlName="number" placeholder="Bank number"  required>
+                  </mat-form-field>
+                <div>
+                  <button mat-raised-button matStepperPrevious class="back-btn">Back</button>
+                  <button mat-raised-button matStepperNext class="active-btn">Next</button>
+                </div>
+              </form>
+            </mat-step>
+            <mat-step>
+              <ng-template matStepLabel>Done</ng-template>
+              
+              <h4>Summary:</h4>
+
+              <div class="summary-wrapper">
+                <span>Cart Total:</span> <span>${{totalPrice || 0}}</span>
+                <span>Delivery Fee:</span> <span>{{deliveryFee ? '$' + deliveryFee : '-'}}</span>
+                <span style="font-size: 22px; margin-top: 10px;">Total:</span> <span style="font-size: 22px; margin-top: 10px;">${{deliveryFee ? totalPrice + deliveryFee : totalPrice || '0'}}</span>
+              </div>
+             
+              <div style="margin-top: 20px">
+                <button mat-raised-button matStepperPrevious class="back-btn">Back</button>
+                <button mat-raised-button (click)="order()" [ngClass]="deliveryCompanyForm?.valid && bankAccountForm?.valid ? 'active-btn' : 'inactive-btn'">Order</button>
+              </div>
+            </mat-step>
+          </mat-stepper>
+    </div>
+</div>

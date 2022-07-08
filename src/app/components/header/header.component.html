@@ -3,28 +3,33 @@
 
     <div class="header-search">
         <div class="header-search-input-wrapper">
-            <input placeholder="Search..."/>
+            <input [(ngModel)]="searchKeyword" (keyup.enter)="search()" placeholder="Search..."/>
 
-            <a><i class="fa-solid fa-magnifying-glass"></i></a>
+            <a (click)="search()"><i class="fa-solid fa-magnifying-glass"></i></a>
         </div>
     </div>
 
     <ul class="header-nav">
-        <li>
-            <a>
+        <li *ngIf="userType != enumUserRole.ADMINISTRATOR && userType != enumUserRole.MODERATOR">
+            <a [routerLink]="['/Cart']">
                 <i class="fa-solid fa-cart-shopping"></i>
-                <a [routerLink]="['/Cart']">Cart</a>
+                <span [matBadge]="cartNumber" matBadgeOverlap="false">My cart</span>
             </a>
         </li>
         <li>
-            <a *ngIf="userId">
+            <a *ngIf="userId" [routerLink]="['/Profile']">
                 <i class="fa-solid fa-user"></i>
                 <span>Profile</span>
             </a>
         </li>
         <li>
-            <a *ngIf="!userId">
+            <a *ngIf="!userId" [routerLink]="['/Login']">
                <span>Log in</span>
+            </a>
+        </li>
+        <li>
+            <a *ngIf="userId" (click)="logout()">
+               <span>Log out</span>
             </a>
         </li>
     </ul>

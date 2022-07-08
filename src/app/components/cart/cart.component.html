@@ -1,5 +1,48 @@
 <div class="cart">
-    <span>
-        CART: {{cart | json}}
-    </span>
+    <h3>Cart Content</h3>
+
+    <div class="cart-wrapper">
+        <div class="cart-content">
+            <ng-container *ngIf="items && items.length > 0; else noItemsTemplate">
+                <div *ngFor="let item of items; let index = index" class="cart-content-item">
+                    <img *ngIf="item?.images && item?.images.length > 0" [src]="item?.images[0]" class="cart-content-item-image"/>
+    
+                    <div class="cart-content-item-info">
+                        <span class="cart-content-item-info-title">{{item?.title}}</span>
+    
+                        <div  class="cart-content-item-info-content">
+                            <span class="cart-content-item-info-content-price">${{item?.price}}</span>
+    
+                            <div class="cart-content-item-info-content-amount">
+                                <div class="cart-content-item-info-content-amount-action">
+                                    <a (click)="removeItem(item?.id)"><i class="fa-solid fa-circle-minus"></i></a>
+
+                                    <span>{{itemQuantities[index]?.quantity}}</span>
+
+                                    <a (click)="addItem(item?.id)"><i class="fa-solid fa-circle-plus"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </ng-container>
+
+            <ng-template #noItemsTemplate>
+               <div class="cart-content-item">
+                    <span>No items in cart.</span>
+               </div>
+            </ng-template>
+        </div>
+    
+        <div class="cart-info">
+            <span class="cart-info-title">Summary</span>
+
+            <div class="cart-info-content">
+                <span class="cart-info-content-label">Total</span>
+                <span class="cart-info-content-total">${{totalPrice}}</span>
+            </div>
+
+            <a [routerLink]="items?.length > 0 && userId ? '/Checkout' : '/Cart'" class="cart-info-btn" [ngClass]="items?.length > 0 && userId ? 'cart-info-btn-color' : ''">Proceed</a>
+        </div>
+    </div>
 </div>
