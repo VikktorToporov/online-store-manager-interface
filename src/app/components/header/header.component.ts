@@ -13,7 +13,8 @@ import { UserRole } from 'src/app/enums/user.enum';
 export class HeaderComponent implements OnChanges {
   @Input('user-id') userId: string;
   userType: UserRole;
-  
+  dark = false;
+
   cartNumber: number = null;
   searchKeyword = null;
   currentUrl: string;
@@ -30,6 +31,11 @@ export class HeaderComponent implements OnChanges {
       this.userType = +localStorage.getItem('userType');
     }
     
+    if (localStorage.getItem('theme') != null && localStorage.getItem('theme') != undefined) {
+      if (localStorage.getItem('theme') === 'DARK') {
+        this.dark = true;
+      }
+    }
 }
 
   ngOnChanges(changes: SimpleChanges): void {

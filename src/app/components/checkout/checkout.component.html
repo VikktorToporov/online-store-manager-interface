@@ -8,7 +8,7 @@
                 <ng-template matStepLabel>Select a delivery company</ng-template>
                 <mat-form-field appearance="fill">
                   <mat-label>Delivery Company</mat-label>
-                  <mat-select (selectionChange)="deliveryCompanySelected($event)" formControlName="deliveryCompany">
+                  <mat-select (selectionChange)="deliveryCompanySelected($event)" formControlName="deliveryCompany" required>
                     <mat-option *ngFor="let company of deliveryCompanies" [value]="company?.id">
                       {{company?.name}}
                     </mat-option>

@@ -9,7 +9,8 @@
     justify-content: space-between;
     align-items: center;
     background: #1DCBC7;
-    
+    z-index: 9;
+
     * {
         color: whitesmoke !important;
     }
@@ -65,6 +66,10 @@
             }
         }
     }
+}
+
+.header-dark {
+    background-color: #121212 !important;
 }
 
 @media only screen and (max-width: 1120px) {

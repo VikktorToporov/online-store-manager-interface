@@ -41,3 +41,11 @@
         }
     }
 }
+
+@media only screen and (max-width: 650px) {
+    .checkout {  
+        mat-stepper {
+            width: 90%;
+        }
+    }
+}

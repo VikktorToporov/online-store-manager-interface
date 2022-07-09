@@ -124,6 +124,8 @@ export class ProfileComponent implements OnInit {
       this.usersService?.updateUser(payload)
         .subscribe((result: any) => {
           if (result) {
+            this.userForm = this.fb.group(this.initialValueUser);
+
             this._snackBar.open('Profile updated!', 'Close', {duration: 2 * 1000});
           }
         });
@@ -138,6 +140,9 @@ export class ProfileComponent implements OnInit {
       this.usersService?.changeTheme(payload)
         .subscribe((result: any) => {
           if (result) {
+            localStorage.setItem('theme', this.userForm?.value?.theme);
+            this.userForm = this.fb.group(this.initialValueUser);
+            window.location.href = '/Profile';
             this._snackBar.open('Theme updated!', 'Close', {duration: 2 * 1000});
           }
         });

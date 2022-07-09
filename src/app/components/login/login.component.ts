@@ -32,7 +32,11 @@ export class LoginComponent {
   }
 
   constructor(private usersService: UsersService, protected clientsService: ClientsService, private _formBuilder: FormBuilder, private _snackBar: MatSnackBar) {
-    this.userType = +localStorage.getItem('userType');
+    
+    if (localStorage.getItem('userType')) {
+      this.userType = +localStorage.getItem('userType');
+    }
+    
     this.userId = localStorage.getItem('userId');
 
     if (this.userId && +this.userType != UserRole.ADMINISTRATOR) {
