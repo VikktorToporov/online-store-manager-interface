@@ -9,7 +9,7 @@
             <!-- ADMIN, MOD  -->
             <li *ngIf="userType === enumUserRole.ADMINISTRATOR || userType === enumUserRole.MODERATOR" (click)="changeNav(1)" [ngClass]="navSelected === 1 ? 'active' : ''">Stores</li>
             <!-- ADMIN  -->
-            <li *ngIf="userType === enumUserRole.ADMINISTRATOR" (click)="changeNav(2)" [ngClass]="navSelected === 2 ? 'active' : ''">Users</li>
+            <li *ngIf="userType === enumUserRole.ADMINISTRATOR" (click)="changeNav(2)" [ngClass]="navSelected === 2 ? 'active' : ''">Clients</li>
             <!-- ADMIN  -->
             <li *ngIf="userType === enumUserRole.ADMINISTRATOR" (click)="changeNav(3)" [ngClass]="navSelected === 3 ? 'active' : ''">Couriers</li>
             <!-- ADMIN, MOD  -->
@@ -20,13 +20,21 @@
     <div class="panels">
         <div *ngIf="navSelected == 0" [formGroup]="userForm" class="profile-panel manage-profile">
             <mat-form-field appearance="fill">
+                <mat-label>Theme</mat-label>
+                <mat-select formControlName="theme">
+                    <mat-option [value]="enumSiteTheme[enumSiteTheme.DARK]">Dark</mat-option>
+                    <mat-option [value]="enumSiteTheme[enumSiteTheme.LIGHT]">Light</mat-option>
+                </mat-select>
+            </mat-form-field>
+
+            <mat-form-field appearance="fill">
                 <mat-label>Password</mat-label>
-                <input matInput formControlName="password" placeholder="Password" type="password" required>
+                <input matInput formControlName="password" placeholder="Password" type="password">
             </mat-form-field>
     
             <mat-form-field appearance="fill">
                 <mat-label>Repeat Password</mat-label>
-                <input matInput formControlName="password2" placeholder="Repeat Password" type="password" required>
+                <input matInput formControlName="password2" placeholder="Repeat Password" type="password">
             </mat-form-field>
 
             <div>

@@ -6,10 +6,12 @@ import { ItemDetailsComponent } from './components/item-details/item-details.com
 import { ItemListComponent } from './components/item-list/item-list.component';
 import { LandingComponent } from './components/landing/landing.component';
 import { LoginComponent } from './components/login/login.component';
+import { NewComponent } from './components/new/new.component';
 import { ProfileComponent } from './components/profile/profile.component';
 
 const routes: Routes = [
   { path: '', component: LandingComponent },
+  { path: 'Landing', component: LandingComponent },
   { path: 'Login', component: LoginComponent },
   { path: 'Home', component: LandingComponent },
   { path: 'Item/Details/:id', component: ItemDetailsComponent },
@@ -17,6 +19,7 @@ const routes: Routes = [
   { path: 'Checkout', component: CheckoutComponent },
   { path: 'List', component: ItemListComponent },
   { path: 'Profile', component: ProfileComponent },
+  { path: 'New', component: NewComponent },
 ];
 
 @NgModule({

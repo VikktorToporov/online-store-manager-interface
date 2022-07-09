@@ -10,7 +10,7 @@
             <span *ngIf="item.price !== item.originalPrice" class="item-details-info-old-price">${{item.originalPrice}}</span>
             <span class="item-details-info-price">${{item.price}}</span>
     
-            <a (click)="addToCart(item.id)" class="item-details-info-buy-btn">Add to cart</a>
+            <a *ngIf="userType != enumUserRole.ADMINISTRATOR && userType != enumUserRole.MODERATOR" (click)="addToCart(item.id)" class="item-details-info-buy-btn">Add to cart</a>
     
             <div class="item-details-info-description">
                 <span class="item-details-info-description-title">Description</span>
@@ -45,13 +45,6 @@
             <mat-label>Sale</mat-label>
             <mat-select formControlName="saleId">
                 <mat-option *ngFor="let sale of sales" [value]="sale?.id"> {{sale?.startDate + ' - ' + sale?.endDate + ' ('+ sale?.salePercentage +'%)'}} </mat-option>
-              </mat-select>
-        </mat-form-field>
-
-        <mat-form-field appearance="fill" style="width: 500px">
-            <mat-label>Store</mat-label>
-            <mat-select formControlName="storeId">
-                <mat-option *ngFor="let store of stores" [value]="store?.id"> {{store?.name}} </mat-option>
               </mat-select>
         </mat-form-field>
 

@@ -13,22 +13,30 @@
         <li *ngIf="userType != enumUserRole.ADMINISTRATOR && userType != enumUserRole.MODERATOR">
             <a [routerLink]="['/Cart']">
                 <i class="fa-solid fa-cart-shopping"></i>
-                <span [matBadge]="cartNumber" matBadgeOverlap="false">My cart</span>
+                <span [matBadge]="cartNumber" matBadgeOverlap="false" class="icon-text">My cart</span>
             </a>
         </li>
-        <li>
-            <a *ngIf="userId" [routerLink]="['/Profile']">
+
+        <li *ngIf="userType == enumUserRole.ADMINISTRATOR || userType == enumUserRole.MODERATOR">
+            <a [routerLink]="['/New']">
+                <i class="fa-solid fa-circle-plus"></i>
+                <span class="icon-text">Add New</span>
+            </a>
+        </li>
+
+        <li *ngIf="userId">
+            <a [routerLink]="['/Profile']">
                 <i class="fa-solid fa-user"></i>
-                <span>Profile</span>
+                <span class="icon-text">Profile</span>
             </a>
         </li>
-        <li>
-            <a *ngIf="!userId" [routerLink]="['/Login']">
+        <li *ngIf="!userId">
+            <a [routerLink]="['/Login']">
                <span>Log in</span>
             </a>
         </li>
-        <li>
-            <a *ngIf="userId" (click)="logout()">
+        <li *ngIf="userId">
+            <a (click)="logout()">
                <span>Log out</span>
             </a>
         </li>

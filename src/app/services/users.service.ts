@@ -28,4 +28,8 @@ export class UsersService {
   signup(payload: any) {
     return this.http.post(`${this.baseUrl}`, payload);
   }
+
+  changeTheme(payload: any) {
+    return this.http.put(`${this.baseUrl}/ChangeTheme?userId=${payload?.userId}&theme=${payload?.theme}`, null);
+  }
 }

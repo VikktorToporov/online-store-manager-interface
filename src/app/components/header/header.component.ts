@@ -26,7 +26,10 @@ export class HeaderComponent implements OnChanges {
       this.updateCartNumber();
     });
 
-    this.userType = +localStorage.getItem('userType');
+    if (localStorage.getItem('userType') != null && localStorage.getItem('userType') != undefined) {
+      this.userType = +localStorage.getItem('userType');
+    }
+    
 }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -50,9 +53,15 @@ export class HeaderComponent implements OnChanges {
   }
 
   private updateCartNumber() {
-    let cart: string[] = JSON.parse(localStorage.getItem('cart'));
+    const cartString = localStorage.getItem('cart');
+
+    if (cartString) {
+      let cart: string[] = JSON.parse(cartString);
     
-    this.cartNumber = cart?.length || null;
+      this.cartNumber = cart?.length || null;
+    } else {
+      this.cartNumber = null;
+    }
   }
 
   logout() {
@@ -60,5 +69,7 @@ export class HeaderComponent implements OnChanges {
     localStorage.removeItem('userId');
     localStorage.removeItem('userType');
     this.router.navigate(['/']);
+    this.userId = null;
+    this.userType = null;
   }
 }

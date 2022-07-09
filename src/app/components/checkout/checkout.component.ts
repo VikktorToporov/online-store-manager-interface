@@ -7,6 +7,7 @@ import { ItemService } from 'src/app/services/item.service';
 import { OrdersService } from 'src/app/services/orders.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
+import { CartService } from 'src/app/services/cart.service';
 
 @Component({
   selector: 'app-checkout',
@@ -25,10 +26,13 @@ export class CheckoutComponent {
 
   constructor(
       private fb: FormBuilder, protected bankAccountsService: BankAccountsService, protected deliveryCompaniesService: DeliveryCompaniesService,
-      protected ordersService: OrdersService, protected itemService: ItemService, private _snackBar: MatSnackBar, private router: Router
+      protected ordersService: OrdersService, protected itemService: ItemService, private _snackBar: MatSnackBar, private router: Router, private _cartService: CartService
   ) {
     this.userId = localStorage.getItem('userId');
-    this.cartIds = JSON.parse(localStorage.getItem('cart'));
+  
+    if (localStorage.getItem('cart')) {
+      this.cartIds = JSON.parse(localStorage.getItem('cart'));
+    }
     
     this.deliveryCompanyForm = this.fb.group({
       deliveryCompany: [''],
@@ -98,6 +102,8 @@ export class CheckoutComponent {
   }
 
   success() {
+    localStorage.removeItem('cart');
+    this._cartService.emitChange();
     this._snackBar.open('Order Created!', 'Close', {duration: 2 * 1000});
     this.router.navigate(['/']);
   }

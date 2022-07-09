@@ -30,11 +30,11 @@ export class ItemDetailsComponent {
     description: '',
     price: null,
     saleId: null,
-    storeId: null,
   };
 
   sales: Sale[];
-  stores: any[];
+
+  enumUserRole = UserRole;
 
   constructor(private router: Router, protected storesService: StoresService, protected salesService: SaleService, private fb: FormBuilder, protected itemService: ItemService, protected clientsService: ClientsService, protected route: ActivatedRoute, private _snackBar: MatSnackBar, private _cartService: CartService) {
     this.userId = localStorage.getItem('userId');
@@ -87,18 +87,13 @@ export class ItemDetailsComponent {
         })
   }
 
-  private getStores() {
-    this.storesService.getAll()
-        .subscribe((result: any[]) => {
-          if (result) {
-            this.stores = result;
-          }
-        })
-  }
-
   addToCart(id: string) {
     if (id) {
-      let cart: string[] = JSON.parse(localStorage.getItem('cart'));
+      let cart: string[] = [];
+
+      if (localStorage.getItem('cart')) {
+        cart = JSON.parse(localStorage.getItem('cart'));
+      }
 
       if (!cart) {
         cart = [];
@@ -135,7 +130,6 @@ export class ItemDetailsComponent {
       description: this.editForm?.value?.description,
       price: this.editForm?.value?.price,
       saleId: this.editForm?.value?.saleId,
-      storeId: this.editForm?.value?.storeId,
     };
 
     this.itemService.updateItem(payload)
@@ -150,7 +144,6 @@ export class ItemDetailsComponent {
 
   openEditItem() {
     this.getSales();
-    this.getStores();
 
     this.editItem = true;
 
@@ -159,7 +152,6 @@ export class ItemDetailsComponent {
     initialValue.description = this.item.description;
     initialValue.price = this.item.price;
     initialValue.saleId = this.item.sale?.id;
-    initialValue.storeId = this.item.store?.id;
 
     this.editForm = this.fb.group(initialValue);
   }

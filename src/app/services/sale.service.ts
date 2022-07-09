@@ -17,7 +17,11 @@ export class SaleService {
     return this.http.put(`${this.baseUrl}`, payload);
   }
 
+  addSale(payload: any) {
+    return this.http.post(`${this.baseUrl}`, payload);
+  }
+
   deleteSales(id: string) {
-    return this.http.delete(`${this.baseUrl}?id=${id}`);
+    return this.http.put(`${this.baseUrl}/Delete?id=${id}`, null);
   }
 }

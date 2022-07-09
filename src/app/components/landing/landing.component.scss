@@ -7,6 +7,7 @@
     &-category {
         &-wrapper {
             width: 80%;
+            margin: 10px 0;
         }
 
         &-header {
@@ -35,6 +36,22 @@
             display: flex;
             flex-wrap: wrap;
             gap: 20px;
+        }
+    }
+}
+
+@media only screen and (max-width: 500px) {
+    .landing {
+       &-category {
+            &-header {
+                flex-direction: column;
+                justify-content: center;
+                width: 270px;
+                
+                span {
+                    margin-right: 0;
+                }
+            }
         }
     }
 }

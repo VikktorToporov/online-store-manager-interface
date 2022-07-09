@@ -1,0 +1,117 @@
+<div class="profile">
+    <h3>Add New</h3>
+
+    <div class="profile-nav">
+        <ul>
+            <li (click)="changeNav(0)" [ngClass]="navSelected === 0 ? 'active' : ''">Item</li>
+
+            <li (click)="changeNav(1)" [ngClass]="navSelected === 1 ? 'active' : ''">Store</li>
+
+            <li (click)="changeNav(2)" [ngClass]="navSelected === 2 ? 'active' : ''">Sale</li>
+
+            <li (click)="changeNav(3)" [ngClass]="navSelected === 3 ? 'active' : ''">Courier</li>
+        </ul>
+    </div>
+
+    <div class="panels">
+        <div *ngIf="navSelected === 1" [formGroup]="storeForm" class="edit-store">
+             <mat-form-field appearance="fill">
+                <mat-label>Name</mat-label>
+                <input matInput formControlName="name" placeholder="Name" required>
+            </mat-form-field>
+    
+            <mat-form-field appearance="fill">
+                <mat-label>Address</mat-label>
+                <input matInput formControlName="address" placeholder="Address" required>
+            </mat-form-field>
+
+            <div>
+                <button (click)="addStore()" mat-raised-button class="active-btn">Save</button>
+            </div>
+        </div>
+
+        <div *ngIf="navSelected === 0" [formGroup]="itemForm" class="edit-store">
+            <mat-form-field appearance="fill" >
+                <mat-label>Title</mat-label>
+                <input matInput formControlName="title" placeholder="Title" required>
+            </mat-form-field>
+    
+            <mat-form-field appearance="fill">
+                <mat-label>Description</mat-label>
+                <textarea matInput rows="8" formControlName="description" placeholder="Description" required></textarea>
+            </mat-form-field>
+
+            <mat-form-field appearance="fill" >
+                <mat-label>Image</mat-label>
+                <input matInput formControlName="image" placeholder="Image" required>
+            </mat-form-field>
+    
+            <mat-form-field appearance="fill">
+                <mat-label>Price</mat-label>
+                <input matInput formControlName="price" placeholder="Price" required>
+            </mat-form-field>
+    
+            <mat-form-field appearance="fill">
+                <mat-label>Sale</mat-label>
+                <mat-select formControlName="saleId">
+                    <mat-option *ngFor="let sale of sales" [value]="sale?.id"> {{sale?.startDate + ' - ' + sale?.endDate + ' ('+ sale?.salePercentage +'%)'}} </mat-option>
+                  </mat-select>
+            </mat-form-field>
+    
+            <mat-form-field appearance="fill">
+                <mat-label>Store</mat-label>
+                <mat-select formControlName="storeId">
+                    <mat-option *ngFor="let store of stores" [value]="store?.id"> {{store?.name}} </mat-option>
+                  </mat-select>
+            </mat-form-field>
+
+            <mat-form-field appearance="fill">
+                <mat-label>Category</mat-label>
+                <mat-select formControlName="category">
+                    <mat-option *ngFor="let category of categories" [value]="category?.value"> {{category?.text}} </mat-option>
+                  </mat-select>
+            </mat-form-field>
+
+            <div>
+                <button (click)="addItem()" mat-raised-button class="active-btn">Save</button>
+            </div>
+        </div>
+
+        <div *ngIf="navSelected === 3" [formGroup]="companyForm" class="edit-store">
+            <mat-form-field appearance="fill">
+                <mat-label>Name</mat-label>
+                <input matInput formControlName="name" placeholder="Name" required>
+            </mat-form-field>
+    
+            <mat-form-field appearance="fill">
+                <mat-label>Delivery Fee</mat-label>
+                <input matInput formControlName="deliveryFee" placeholder="Delivery Fee" required>
+            </mat-form-field>
+
+            <div>
+                <button (click)="addCompany()" mat-raised-button class="active-btn">Save</button>
+            </div>
+        </div>
+
+        <div *ngIf="navSelected === 2" [formGroup]="saleForm" class="edit-store">
+            <mat-form-field appearance="fill">
+                <mat-label>Start Date</mat-label>
+                <input matInput formControlName="startDate" placeholder="Start Date" required>
+            </mat-form-field>
+    
+            <mat-form-field appearance="fill">
+                <mat-label>End Date</mat-label>
+                <input matInput formControlName="endDate" placeholder="End Date" required>
+            </mat-form-field>
+
+            <mat-form-field appearance="fill">
+                <mat-label>Percentage</mat-label>
+                <input matInput formControlName="salePercentage" placeholder="Percentage" required>
+            </mat-form-field>
+
+            <div>
+                <button (click)="addSale()" mat-raised-button class="active-btn">Save</button>
+            </div>
+        </div>
+    </div>
+</div>

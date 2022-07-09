@@ -17,6 +17,10 @@ export class DeliveryCompaniesService {
     return this.http.put(`${this.baseUrl}`, payload);
   }
 
+  addDeliveryCompanies(payload: any) {
+    return this.http.post(`${this.baseUrl}`, payload);
+  }
+
   deleteCompanies(id: string) {
     return this.http.delete(`${this.baseUrl}?id=${id}`);
   }

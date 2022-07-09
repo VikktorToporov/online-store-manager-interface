@@ -76,24 +76,16 @@
         }
     }
     
-    .dark {
-        position: fixed;
-        background-color: #00000070;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        display: flex;
-        justify-content: center;
-        align-items: center;
+    .edit-store {
+        width: 400px;
+        background-color: white;
+        box-shadow: 0 1px 3px #0000000d;
+        border-radius: 10px;
+        padding: 10px;
+        text-align: center;
 
-        .edit-store {
+        mat-form-field {
             width: 300px;
-            background-color: white;
-            box-shadow: 0 1px 3px #0000000d;
-            border-radius: 10px;
-            padding: 10px;
-            text-align: center;
         }
 
         .danger-btn {

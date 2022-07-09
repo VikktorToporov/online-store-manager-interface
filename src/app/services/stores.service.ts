@@ -21,6 +21,10 @@ export class StoresService {
     return this.http.put(`${this.baseUrl}`, payload);
   }
 
+  addStore(payload: any) {
+    return this.http.post(`${this.baseUrl}`, payload);
+  }
+
   deleteStore(id: string) {
     return this.http.delete(`${this.baseUrl}?id=${id}`);
   }

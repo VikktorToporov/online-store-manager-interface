@@ -34,6 +34,8 @@ import { SearchService } from './services/search.service';
 import { ProfileComponent } from './components/profile/profile.component';
 import { MatTableModule } from '@angular/material/table';
 import { MatDialogModule } from '@angular/material/dialog';
+import { NewComponent } from './components/new/new.component';
+import { MatSidenavModule } from '@angular/material/sidenav';
 
 @NgModule({
   declarations: [
@@ -50,6 +52,7 @@ import { MatDialogModule } from '@angular/material/dialog';
     TooltipDescriptionPipe,
     CheckoutComponent,
     ProfileComponent,
+    NewComponent,
   ],
   imports: [
     BrowserModule,
@@ -70,6 +73,7 @@ import { MatDialogModule } from '@angular/material/dialog';
     MatPaginatorModule,
     MatTableModule,
     MatDialogModule,
+    MatSidenavModule,
   ],
   providers: [
     HttpClient,

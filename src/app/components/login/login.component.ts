@@ -75,10 +75,16 @@ export class LoginComponent {
   initUser(result: any) {
     if (result) {
       localStorage.setItem('userId', result.id);
-      localStorage.setItem('username', result.username);
-      localStorage.setItem('userType', result.type);
-      localStorage.setItem('cart', result.cart);
-
+      
+      if (result.role != null && result.role != undefined) {
+        localStorage.setItem('userType', UserRole[result.role]);
+      }
+      
+      if (result.cart) {
+        localStorage.setItem('cart', result.cart || '');
+      }
+      
+      localStorage.setItem('theme', result.prefferedUserTheme);
       window.location.href = '/';
     }
   }

@@ -50,8 +50,14 @@ export class ItemService {
     return this.http.get(`${this.baseUrl}?id=${id}`);
   }
 
-  getLandingItems() {
-    return this.http.get(`${this.baseUrl}/Feed`);
+  getLandingItems(id: string) {
+    let param = '';
+
+    if (id) {
+      param = `?clientId=${id}`;
+    }
+
+    return this.http.get(`${this.baseUrl}/Feed${param}`);
   }
 
   getItemsByIds(ids: string[]) {
@@ -64,7 +70,11 @@ export class ItemService {
     return this.http.put(`${this.baseUrl}`, payload);
   }
 
+  addItem(payload: any) {
+    return this.http.post(`${this.baseUrl}`, payload);
+  }
+
   deleteItem(id: string) {
-    return this.http.delete(`${this.baseUrl}?id=${id}`);
+    return this.http.put(`${this.baseUrl}/Delete?id=${id}`, null);
   }
 }

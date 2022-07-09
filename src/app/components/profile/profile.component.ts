@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { UserRole } from 'src/app/enums/user.enum';
+import { SiteTheme, UserRole } from 'src/app/enums/user.enum';
 import { DeliveryCompany } from 'src/app/models/delivery-company.model';
 import { Sale } from 'src/app/models/sale.model';
 import { Store } from 'src/app/models/store.model';
@@ -32,6 +32,7 @@ export class ProfileComponent implements OnInit {
   saleForm: FormGroup;
 
   initialValueUser = {
+    theme: '',
     password: '',
     password2: '',
   };
@@ -77,6 +78,7 @@ export class ProfileComponent implements OnInit {
   navSelected;
   enumUserRole = UserRole;
   enumOrderStatus = OrderStatus;
+  enumSiteTheme = SiteTheme;
 
   constructor(
       private fb: FormBuilder, protected usersService: UsersService, protected clientsService: ClientsService, private _snackBar: MatSnackBar,
@@ -113,17 +115,33 @@ export class ProfileComponent implements OnInit {
   }
 
   updateProfile() {
-    const payload = {
-      id: this.userId,
-      password: this.userForm?.value?.password,
-    };
+    if (this.userForm?.value?.password) {
+      const payload = {
+        id: this.userId,
+        password: this.userForm?.value?.password
+      };
 
-    this.usersService?.updateUser(payload)
-    .subscribe((result: any) => {
-      if (result) {
-        this._snackBar.open('Profile updated!', 'Close', {duration: 2 * 1000});
-      }
-    });
+      this.usersService?.updateUser(payload)
+        .subscribe((result: any) => {
+          if (result) {
+            this._snackBar.open('Profile updated!', 'Close', {duration: 2 * 1000});
+          }
+        });
+    }
+
+    if (this.userForm?.value?.theme) {
+      const payload = {
+        userId: this.userId,
+        theme: this.userForm?.value?.theme
+      };
+
+      this.usersService?.changeTheme(payload)
+        .subscribe((result: any) => {
+          if (result) {
+            this._snackBar.open('Theme updated!', 'Close', {duration: 2 * 1000});
+          }
+        });
+    }
   }
 
   updateStore() {
@@ -336,9 +354,7 @@ export class ProfileComponent implements OnInit {
   }
 
   deleteStore() {
-    this.closeDark();
-
-    this.storesService?.deleteStore(this.saleToEdit?.id)
+    this.storesService?.deleteStore(this.storeToEdit?.id)
       .subscribe((result: any) => {
         this._snackBar.open('Store deleted!', 'Close', {duration: 2 * 1000});
         this.closeDark();
@@ -361,9 +377,7 @@ export class ProfileComponent implements OnInit {
   }
 
   deleteCompany() {
-    this.closeDark();
-
-    this.deliveryCompaniesService?.deleteCompanies(this.saleToEdit?.id)
+    this.deliveryCompaniesService?.deleteCompanies(this.companyToEdit?.id)
       .subscribe((result: any) => {
         this._snackBar.open('Courier deleted!', 'Close', {duration: 2 * 1000});
           this.closeDark();

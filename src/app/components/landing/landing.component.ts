@@ -10,6 +10,7 @@ import { ItemService } from 'src/app/services/item.service';
 })
 export class LandingComponent {
   categories: { text: string, value: any, items?: Item[] }[] = [];
+  userId: string;
 
   constructor(protected itemService: ItemService) {
     this.categories = this.generateCategories();
@@ -17,7 +18,9 @@ export class LandingComponent {
   }
 
  private getData() {
-    this.itemService.getLandingItems()
+  this.userId = localStorage.getItem('userId');
+
+    this.itemService.getLandingItems(this.userId)
       .subscribe((result: FrontPageFeed) => {
         if (result) {
           this.mapResultsToCategories(result);
